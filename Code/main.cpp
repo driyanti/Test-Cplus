@@ -1,3 +1,10 @@
+//============================================================================
+// Name        : main.cpp
+// Author      : Christina dwiriyanti
+// Version     : v01
+// Copyright   : D3I-solutions
+// Description : The number of ranges that contains the given point in numbers.dat
+//============================================================================
 #include <iomanip>
 #include <iostream>
 #include <fstream>
@@ -26,9 +33,9 @@ int main ()
 
     // Open the input files
     fstream  file_ext, file_num;
-    file_ext.open("extents.txt", ios::in);
+    file_ext.open("ranges.txt", ios::in);
 
-    file_num.open("numbers.txt", ios_base::in);
+    file_num.open("numbers.dat", ios_base::in);
 
     cout << "after opening filename" << endl;
 
@@ -76,7 +83,7 @@ int main ()
     cout << "colA:" << colA << endl;
     cout << "Number:" <<  count << endl;
     ofstream outfile;// declaration of file pointer named outfile
-    outfile.open("output.txt", ios::out); // opens file named "filename" for output
+    outfile.open("output.dat", ios::out); // opens file named "filename" for output
     for ( int j = 0; j < 10; j++ ) //loop numbers
     {
         int output=0;
