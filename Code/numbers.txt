@@ -1,0 +1,11 @@
+#This file consists of a list of points, one per line.#
+
+2
+5
+103
+24
+55
+204
+106
+500
+54
