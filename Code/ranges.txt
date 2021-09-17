@@ -1,4 +1,3 @@
-# This file containts the ranges, one per line with each line in the format 'A<whitespace>B'#
 0 12
 103 201
 13 22
