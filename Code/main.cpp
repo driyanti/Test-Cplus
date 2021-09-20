@@ -1,115 +1,89 @@
-//============================================================================
-// Name        : main.cpp
-// Author      : Christina dwiriyanti
-// Version     : v01
-// Copyright   : D3I-solutions
-// Description : The number of ranges that contains the given point in numbers.dat
-//============================================================================
+//
+//  extents.cpp
+//  This code determines if a given input number falls within different ranges of values
+//
+//  Created by Dwi Riyanti on 07/05/18.
+//  Copyright (c) 2018 Dwi Riyanti. All rights reserved.
+//
+#include <stdio.h>
 #include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sstream>
-#include <array>
-#include <stdio.h>
 #include <algorithm>
+#include <vector>
+#include <iterator>
 
-/**
- * read data from file
+/*
+ * main program
  */
-
-int rowA = 0;
-int colA = 0;
-using namespace std;
 int main ()
 {
-    string lineA, lineB;
-    int x, xx, yy;
-    int arrayA[500000][2] = {0};
-    int arrayB[500000] = {0};
+    using namespace std;
 
-    //int **tmp;
-    //tmp = new int*[200000];
+    // Define all paramaters
+    int first(0), second(0);
+    vector<int> lower;
+    vector<int> upper;
+    vector<int> point;
+    vector<int>:: iterator numElement_up;
+    vector<int>:: iterator numElement_low;
+    unsigned long int Total;
 
-    // Open the input files
+    //Open the extents and numbers files
     fstream  file_ext, file_num;
-    file_ext.open("ranges.txt", ios::in);
 
-    file_num.open("numbers.dat", ios_base::in);
+    //Reading ranges
+    file_ext.open("ranges.txt", ios_base::in);
 
-    cout << "after opening filename" << endl;
+    //Reading element
+    file_num.open ("numbers.dat", ios_base::in);
 
     // Check for error
     if (file_ext.fail() && file_num.fail()){
-        cerr << "Error opening file" << endl;
+        cerr << "Error opening files" << endl;
         exit(1);
     }
 
+    //Read an input file of ranges until you have reached the end
     if (file_ext.good()){
-        while(getline(file_ext, lineA)){
-            istringstream streamA(lineA);
-            colA=0;
-            while(streamA >> x) {
-                arrayA[rowA][colA] = x;
-                colA++;
-            }
-            rowA++;
-        }
-    }
-
-    //Read a file until you have reached the end
-    int count = 0;
-    while (file_num >> xx) {
-        arrayB[count] = xx;
-        count ++;
-    }
-
-    if (false) {
-        for (int i=0; i<rowA; i++){
-            for (int j=0; j<colA; j++){
-                cout << left << setw(3) << arrayA[i][j] << " " ;
-            }
-            cout << endl;
-        }
-        for (int j=0; j<count; j++){
-            cout << left << setw(2) << arrayB[j] << " " ;
-        }
-        cout << endl;
-    }
-
-    //Now we call the sort function
-
-    cout << "rowA:" << rowA << endl;
-    cout << "colA:" << colA << endl;
-    cout << "Number:" <<  count << endl;
-    ofstream outfile;// declaration of file pointer named outfile
-    outfile.open("output.dat", ios::out); // opens file named "filename" for output
-    for ( int j = 0; j < 10; j++ ) //loop numbers
-    {
-        int output=0;
-        for ( int i = 0; i < 10; i++ ) // loop intervals
+        while (file_ext >> first >> second)
         {
-            if (arrayB[j] <= arrayA[i][1] && arrayB[j]>=arrayA[i][0] )
-            {
-                output++;
-            }
+            lower.push_back(first);
+            upper.push_back(second);
         }
-        arrayA[j][0]=output;
-        if (j >= count-10) {
-            cout << "This number " << arrayB[j] << " appears " << arrayA[j][0] << " times in the list of ranges" << endl;
-        }
-        outfile << setw(2) << arrayA[j][0] << " ";
+    }
+    file_ext.close();
+
+    //Read a file of input values until you have reached the end
+    if (file_num.good()){
+        while (file_num >> first) point.push_back(first);
+    }
+    file_num.close();
+
+    //Sorting the lower and upper range
+    sort (lower.begin(), lower.end());
+    sort (upper.begin(), upper.end());
+
+    //Open output file
+    ofstream file_out("output.txt");
+
+    //Calculate the number of valid ranges per input value (where the input value falls within a given range)
+    for ( int j = 0; j < point.size(); j++ )
+    {
+        //Apply upper_bound and lower_bound function
+        numElement_up  = upper_bound(lower.begin(), lower.end(), point[j]);
+        numElement_low = lower_bound(upper.begin(), upper.end(), point[j]);
+
+        //Total number of elements
+        Total  = (numElement_up - lower.begin()) - (numElement_low - upper.begin());
+        file_out << Total << endl;
+        cout << "This number " << Total << " appears " << endl;
 
     }
 
-    outfile.close();// closes
-  
-    cout << " Done " << endl;
-    
-    // close files
-    
-    file_ext.close();
-    file_num.close();
-    
+    //Close all files
+    file_out.close();
+
     return 0;
 }
