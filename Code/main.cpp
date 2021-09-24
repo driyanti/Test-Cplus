@@ -31,29 +31,29 @@ int main ()
     unsigned long int Total;
 
     //Open the extents and numbers files
-    fstream  file_ext, file_num;
+    fstream  file_range, file_num;
 
     //Reading ranges
-    file_ext.open("ranges.txt", ios_base::in);
+    file_range.open("ranges.txt", ios_base::in);
 
     //Reading element
     file_num.open ("numbers.dat", ios_base::in);
 
     // Check for error
-    if (file_ext.fail() && file_num.fail()){
+    if (file_range.fail() && file_num.fail()){
         cerr << "Error opening files" << endl;
         exit(1);
     }
 
     //Read an input file of ranges until you have reached the end
-    if (file_ext.good()){
-        while (file_ext >> first >> second)
+    if (file_range.good()){
+        while (file_range >> first >> second)
         {
             lower.push_back(first);
             upper.push_back(second);
         }
     }
-    file_ext.close();
+    file_range.close();
 
     //Read a file of input values until you have reached the end
     if (file_num.good()){
@@ -78,7 +78,7 @@ int main ()
         //Total number of elements
         Total  = (numElement_up - lower.begin()) - (numElement_low - upper.begin());
         file_out << Total << endl;
-        cout << "This number " << Total << " appears " << endl;
+        cout << "This number " << point[j] << " is " << Total << " appears "<< endl;
 
     }
 
