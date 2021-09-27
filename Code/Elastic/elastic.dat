@@ -1,0 +1,6 @@
+10       Number of elements
+10000.0  Force [N]
+0.0      Traction [N/m]
+0.0004   Cross-sectional area [m^2]
+193.0e9  Young's modulus [Pa]
+1.0      Length [m]
