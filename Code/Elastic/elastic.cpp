@@ -2,6 +2,7 @@
  * This example program solves a 1-D elasticity problem by applying
  * the finite element method. The calculated displacements in the
  * nodes are saved to the output file "disp.out".
+ * C++ course 2016
  */
 #include <fstream>
 #include <iostream>
