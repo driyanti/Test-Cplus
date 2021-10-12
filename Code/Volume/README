@@ -1,0 +1,39 @@
+This code calculates the volume of oil & gas between two horizons and above the fluid contact.
+The output will be in three different units: cubic meter, cubic feet, and barrels.
+
+This is C++ console application, without any GUI
+
+To compile please simply type:
+
+make
+
+Then to run the code, the user needs to enter some input parameters. Here is an example:
+
+./volume -unit feet -nx 16 -ny 26 -dx 200 -dy 200 -fluidcontact 9842.519685 -tophorizon top.txt -basehorizon base.txt
+
+The code can also compute the volume of oil & gas between below a horizon and above the fluid contact. 
+To do that, simply remove the input for base horizon.
+
+./volume \
+    -unit feet \
+    -nx 16 \
+    -ny 26 \
+    -dx 200 \
+    -dy 200 \
+    -fluidcontact 9842.519685 \
+    -tophorizon top.txt 
+
+./volume -unit feet -nx 16 -ny 26 -dx 200 -dy 200 -fluidcontact 9842.519685 -tophorizon top.txt -basehorizon base.txt
+
+Explanation:
+   -dx <double> ................ Cell spacing in x direction
+   -dy <double> ................ Cell spacing in y direction
+   -nx <integer> ............... Number of points in x direction
+   -ny <integer> ............... Number of points in y direction
+   -tophorizon <file> .......... Input file for top horizon
+   -basehorizon <file> ......... Input file for base horizon (optional)
+   -fluidcontact <double> ...... Fluid contact
+   -unit <string> .............. Unit: feet or meter (all input)
+
+Author: Marwan Wirianto and Christina Dwiriyanti
+
